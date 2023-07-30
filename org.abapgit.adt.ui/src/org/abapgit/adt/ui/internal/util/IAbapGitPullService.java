@@ -3,8 +3,10 @@ package org.abapgit.adt.ui.internal.util;
 import java.util.Map;
 import java.util.Set;
 
+import org.abapgit.adt.backend.model.abapgitrepositories.IRepository;
 import org.abapgit.adt.backend.model.agitpullmodifiedobjects.IAbapGitPullModifiedObjects;
 import org.abapgit.adt.ui.internal.repositories.IRepositoryModifiedObjects;
+import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * To handle all utility and helper methods involved in Pull Action in abapGit.
@@ -41,4 +43,6 @@ public interface IAbapGitPullService {
 			Set<IRepositoryModifiedObjects> overWriteObjectsSelectedToPull,
 			Set<IRepositoryModifiedObjects> packageWarningObjectsSelectedToPull);
 
+	public void refreshOpenEditorsAfterPull(String destination, IProgressMonitor monitor, IRepository repository,
+			IAbapGitPullModifiedObjects objectsRequestedToPull);
 }

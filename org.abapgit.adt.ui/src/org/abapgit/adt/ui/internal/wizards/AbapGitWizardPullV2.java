@@ -10,6 +10,7 @@ import org.abapgit.adt.backend.IApackManifest.IApackDependency;
 import org.abapgit.adt.backend.IExternalRepositoryInfoService;
 import org.abapgit.adt.backend.IRepositoryService;
 import org.abapgit.adt.backend.RepositoryServiceFactory;
+import org.abapgit.adt.backend.model.abapObjects.IAbapObjects;
 import org.abapgit.adt.backend.model.abapgitrepositories.IRepository;
 import org.abapgit.adt.backend.model.agitpullmodifiedobjects.IAbapGitPullModifiedObjects;
 import org.abapgit.adt.ui.AbapGitUIPlugin;
@@ -19,6 +20,7 @@ import org.abapgit.adt.ui.internal.wizards.AbapGitWizard.CloneData;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.IPageChangingListener;
@@ -170,10 +172,12 @@ public class AbapGitWizardPullV2 extends Wizard {
 									AbapGitWizardPullV2.this.pagePackageWarningObjectsSelection.getSelectedObjects());
 
 					//pull the selected objects
-					repoService.pullRepository(AbapGitWizardPullV2.this.selRepoData, AbapGitWizardPullV2.this.selRepoData.getBranchName(),
+					IAbapObjects abapObjects = repoService.pullRepository(AbapGitWizardPullV2.this.selRepoData,
+							AbapGitWizardPullV2.this.selRepoData.getBranchName(),
 							AbapGitWizardPullV2.this.transportPage.getTransportRequestNumber(), AbapGitWizardPullV2.this.cloneData.user,
 							AbapGitWizardPullV2.this.cloneData.pass,
 							AbapGitWizardPullV2.this.repoToSelectedObjects.get(AbapGitWizardPullV2.this.selRepoData.getUrl()), monitor);
+
 
 					if (AbapGitWizardPullV2.this.cloneData.hasDependencies()) {
 						pullDependencies(monitor, repoService);
@@ -197,6 +201,14 @@ public class AbapGitWizardPullV2 extends Wizard {
 					}
 				}
 			});
+
+			AbapGitUIServiceFactory.createAbapGitPullService().refreshOpenEditorsAfterPull(AbapGitWizardPullV2.this.destination,
+					new NullProgressMonitor(),
+					AbapGitWizardPullV2.this.selRepoData,
+					AbapGitUIServiceFactory.createAbapGitPullService()
+							.getSelectedObjectsToPullforRepo(AbapGitWizardPullV2.this.pageOverwriteObjectsSelection.getSelectedObjects(),
+									AbapGitWizardPullV2.this.pagePackageWarningObjectsSelection.getSelectedObjects())
+							.get(this.cloneData.url));
 
 			return true;
 

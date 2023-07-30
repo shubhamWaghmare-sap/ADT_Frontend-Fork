@@ -680,6 +680,41 @@ public class AbapGitView extends ViewPart implements IAbapGitRepositoriesView {
 			this.viewer.setInput(null);
 		}
 
+//		IWorkbench workbench = PlatformUI.getWorkbench();
+//		IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+//		IWorkbenchPage page = window.getActivePage();
+//		IEditorReference[] editorReferences = page.getEditorReferences();
+//		IFile file = null;
+//		for (IEditorReference editorReference : editorReferences) {
+//			System.out.println(editorReference.getName());
+//			try {
+//				System.out.println(editorReference.getEditorInput().getName());
+//			} catch (PartInitException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			try {
+//				System.out.println(((IFileEditorInput) editorReference.getEditorInput()).getFile().getLocationURI().toString());
+//				file = ((IFileEditorInput) editorReference.getEditorInput()).getFile();
+//			} catch (PartInitException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//		}
+//
+//		try {
+//			URI uri = new URI("/sap/bc/adt/oo/classes/cl_sw_classb/source/main?version=workingArea");
+////			IFile file = (IFile) AdtUriMappingServiceFactory.createUriMappingService()
+////					.getPlatformResource(new UriMappingContext(this.lastProject), uri);
+//			AdtSfsUtilFactory.createAdtSfsUtil().synchronizeDevelopmentObject(file, false, null);
+//
+//		} catch (URISyntaxException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
+
 	}
 
 	/**
