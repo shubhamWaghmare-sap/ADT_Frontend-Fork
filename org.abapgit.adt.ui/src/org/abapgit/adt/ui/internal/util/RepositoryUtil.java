@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.abapgit.adt.backend.IRepositoryService;
 import org.abapgit.adt.backend.model.abapgitrepositories.IRepository;
-import org.abapgit.adt.backend.model.agitpullmodifiedobjects.IAbapGitObject;
 import org.abapgit.adt.backend.model.agitpullmodifiedobjects.IAbapGitPullModifiedObjects;
+import org.abapgit.adt.backend.model.agitpullmodifiedobjects.IOverwriteObject;
 import org.abapgit.adt.ui.internal.repositories.RepositoryModifiedObjects;
 import org.abapgit.adt.ui.internal.wizards.AbapGitWizard.CloneData;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -69,12 +69,12 @@ public class RepositoryUtil {
 
 
 			cloneData.repoToModifiedOverwriteObjects.add(new RepositoryModifiedObjects(repository.getUrl(),
-					new ArrayList<IAbapGitObject>(abapPullModifiedObjects.getOverwriteObjects().getAbapgitobjects())));
+					new ArrayList<IOverwriteObject>(abapPullModifiedObjects.getOverwriteObjects().getAbapgitobjects())));
 		}
 
 		if (!abapPullModifiedObjects.getPackageWarningObjects().getAbapgitobjects().isEmpty()) {
 			cloneData.repoToModifiedPackageWarningObjects.add(new RepositoryModifiedObjects(repository.getUrl(),
-					new ArrayList<IAbapGitObject>(abapPullModifiedObjects.getPackageWarningObjects().getAbapgitobjects())));
+					new ArrayList<IOverwriteObject>(abapPullModifiedObjects.getPackageWarningObjects().getAbapgitobjects())));
 		}
 
 	}
@@ -87,12 +87,12 @@ public class RepositoryUtil {
 		}
 
 		if (abapPullModifiedObjects.getPackageWarningObjects() != null) {
-			List<IAbapGitObject> warningObjects = abapPullModifiedObjects.getPackageWarningObjects().getAbapgitobjects();
+			List<IOverwriteObject> warningObjects = abapPullModifiedObjects.getPackageWarningObjects().getAbapgitobjects();
 
-			for (IAbapGitObject abapGitObject : warningObjects) {
-				Iterator<IAbapGitObject> iterator = abapPullModifiedObjects.getOverwriteObjects().getAbapgitobjects().iterator();
+			for (IOverwriteObject abapGitObject : warningObjects) {
+				Iterator<IOverwriteObject> iterator = abapPullModifiedObjects.getOverwriteObjects().getAbapgitobjects().iterator();
 				while (iterator.hasNext()) {
-					IAbapGitObject overwriteObject = iterator.next();
+					IOverwriteObject overwriteObject = iterator.next();
 					if (overwriteObject.getName().equals(abapGitObject.getName())
 							&& overwriteObject.getType().equals(abapGitObject.getType())) {
 						iterator.remove();

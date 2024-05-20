@@ -75,10 +75,8 @@ public class AbapGitWizardPageRepositoryAndCredentials extends WizardPage {
 	public void createControl(Composite parent) {
 
 		Composite container = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		GridLayout layout = new GridLayout(2, false);
 		container.setLayout(layout);
-		layout.numColumns = 2;
 
 		Label lblUrl = new Label(container, SWT.NONE);
 		lblUrl.setText(Messages.AbapGitWizardPageRepositoryAndCredentials_label_url);
@@ -96,6 +94,7 @@ public class AbapGitWizardPageRepositoryAndCredentials extends WizardPage {
 			this.cloneData.externalRepoInfo = null;
 			validateClientOnly();
 		});
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		this.txtURL.setLayoutData(gd);
 
 
@@ -126,7 +125,6 @@ public class AbapGitWizardPageRepositoryAndCredentials extends WizardPage {
 		this.txtPwd.setLayoutData(gd);
 
 		setUserAndPassControlsVisible(false);
-
 
 		setControl(container);
 		setPageComplete(false);
